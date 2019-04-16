@@ -1,41 +1,26 @@
-package server;
+package client;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
 
-    private static int port = 4040;
+    public static String ip = "localhost";
+    public static int port = 8080;
 
-    public static void main(String[] args)
-    {
-
-        try
-        {
-            ServerSocket server = new ServerSocket(port);
-
-            System.out.println("The Server is started.");
-
-            while (true)
-            {
-                System.out.println("Waiting for the connection... ...");
-                Socket client = server.accept();
-                System.out.println("Connected with the " + client.getRemoteSocketAddress());
-                ServeClient Client1 = new ServeClient(client);
-                    Client1.start();
-            }
-
-
-        }
-
-        catch (IOException e)
-        {
-            System.out.println("Can not start the server! The error is: " + e.getMessage());
-        }
-
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("WelcomeScreen.fxml"));
+        primaryStage.setTitle("My Bank");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.show();
     }
 
 
-
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
